@@ -289,8 +289,7 @@ if __name__ == "__main__":
         mean_acc = np.mean(accs); std_acc = np.std(accs)
         print(f"{model_name:<25} {mean_f1:.4f}±{std_f1:.4f}  "
               f"{mean_acc:.4f}±{std_acc:.4f}")
-        if best_model_name is None:
-        #if mean_f1 > best_model_name:
+        if mean_f1 > best_mean_f1:
             best_mean_f1    = mean_f1
             best_model_name = model_name
 
