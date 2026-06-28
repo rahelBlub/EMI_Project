@@ -15,7 +15,7 @@
 
 Klonen des Repositorys:
 ````shell
-git clone https://github.com/Bekky95/EMI_Projekt.git
+git clone https://github.com/rahelBlub/EMI_Project.git
 ````
 
 Virtuellen Enviroment erstellen und aktivieren:
@@ -30,14 +30,31 @@ source .venv/bin/activate
 Benötigte Pakete installieren:
 ````shell
 pip install -r .\requirements.txt
+pip install git+https://github.com/openai/CLIP.git
 ````
+CLIP package von GitHub: https://github.com/openai/CLIP/tree/main
 
-Nach dem Klonen muss nur die `main.py` gestartet werden und das komplette Training wird ausgeführt.
+Nach dem Klonen muss zuerst die `extract_features.py` gestartet werden.
 Beim Starten wird geprüft ob das Datenset bereits im Verzeichnis ist, wenn nicht, wird dieses heruntergeladen.
 Ansonsten wird das Datenset aus dem Verzeichnis `./data/dataset<Dataset_name_>` geladen. Es muss also kein Datenset manuell geladen werden
 
+````bash
+python extract_features.py
+````
+Anschließend muss die `models.py` gestartet werden. Das reicht einmalig, dann sind diese fest.
+
+````bash
+python models.py
+````
+Zum Schluss folgt dann noch die `train.py` mit dem Training und der Auswerung der Daten.
+
+````bash
+python train.py
+````
+
 ## Ergebnistabelle
-tbd
+<img src="confusion_matrix_CrossAttentionFusion.png">
+
 
 <table>
 <tr>
@@ -104,35 +121,15 @@ Ausführlich in [Section File](#aufgabenstellung-file)
 - [x] Setup in Readme schreiben
 - [ ] Ergebnistabelle in Readme schreiben
 - [ ] Diskussion in Readme schreiben
-- [ ] Dataset Klasse implementieren
-- [ ] Modelle als Objekte anlegen (siehe Branch tryout)
-  - [ ] Text: sentence-transformers/all-MiniLM-L6-v2 384
-  - [ ] Bild: openai/clip-vit-base-patch32 512
-- [ ] Methoden als Objekte anlegen (siehe Branch tryout)
+- [x] Dataset Klasse implementieren
+- [x] Modelle als Objekte anlegen (siehe Branch tryout)
+  - [x] Text: sentence-transformers/all-MiniLM-L6-v2 384
+  - [x] Bild: "ViT-B/32" 512 -> anderes model genommen, da image embeddings Probleme bereiteten
+- [ ] Methoden als Objekte anlegen
   - Cross-Attention (uni- oder bidirektional)
   - Early Fusion (Konkatenation, optional mit Projektion auf gemeinsame Dimension)
-- [ ] Alles in der main.py aufrufen
 
-### Aufgabenstellung File
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-1.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-2.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-3.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-4.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-5.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-6.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-7.png">
-
-<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-8.png">
-
-
-## Planung
+## Architektur
 ````mermaid
 ---
 config:
@@ -151,20 +148,6 @@ classDiagram
     
     ExtractFeatures --> main
     Train --> main
-````
-
-## Shell Commands
-
-````shell
-pip install -r .\requirements.txt
-````
-
-````shell
-# create virtual enviroment /.venv :
-python3 -m venv .venv
-
-#activate virtual enviroment:
-source .venv/bin/activate
 ````
 
 ## Notizen
@@ -277,4 +260,21 @@ datasets = kaggle.api.dataset_list(search="cars")
 for dataset in datasets:
     print(f"{dataset.title} - {dataset.ref}")
 ````
+### Aufgabenstellung File
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-1.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-2.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-3.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-4.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-5.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-6.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-7.png">
+
+<img src="data/img/Aufgabenstellung/Laborprojekt_Multimodale_Fusion-8.png">
 

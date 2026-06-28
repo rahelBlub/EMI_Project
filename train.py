@@ -278,7 +278,6 @@ if __name__ == "__main__":
     print(f"{'Baseline Text only':<25} {text_f1:>12.4f} {text_acc:>12.4f}")
     print(f"{'Baseline Image only':<25} {image_f1:>12.4f} {image_acc:>12.4f}")
 
-    #TODO best_model_name mit länge abgleichen und auf leeern str nitialisieren
     best_model_name = None
     best_mean_f1    = 0.0
 

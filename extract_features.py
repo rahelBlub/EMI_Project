@@ -68,9 +68,7 @@ text_model = SentenceTransformer("sentence-transformers/all-MiniLM-L6-v2")
 # Bild-Modell: versteht Bilder und gibt 512 Zahlen zurück
 clip_model  = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").eval()
 clip_proc   = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
-# TODO in README
-# new clip model https://github.com/openai/CLIP/tree/main
-# pip install git+https://github.com/openai/CLIP.git
+
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model, preprocess = clip.load("ViT-B/32", device=device)
 
@@ -180,7 +178,7 @@ print("\nSpeichere Features...")
 np.savez(
     OUTPUT_FILE,
     h_t    = np.stack(all_text_embs),   # (N, 384) – Text-Embeddings
-    h_i    = np.stack(all_image_embs).squeeze(1),  # (N, 512) – Bild-Embeddings
+    h_i    = np.stack(all_image_embs),  # (N, 512) – Bild-Embeddings
     labels = np.array(all_labels),       # (N,)     – Labels als Zahlen
 )
 
