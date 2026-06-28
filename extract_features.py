@@ -156,7 +156,7 @@ all_text_embs  = []
 all_image_embs = []
 all_labels     = []
 all_indices    = []  # merken welche Zeilen erfolgreich waren
-df = df.head(10)  # ← nur zum Testen, danach wieder entfernen
+df = df.head(4000)  # ← nur zum Testen, danach wieder entfernen
 for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Text-Embedding
@@ -179,7 +179,7 @@ print("\nSpeichere Features...")
 np.savez(
     OUTPUT_FILE,
     h_t    = np.stack(all_text_embs),   # (N, 384) – Text-Embeddings
-    h_i    = np.stack(all_image_embs),  # (N, 512) – Bild-Embeddings
+    h_i    = np.stack(all_image_embs).squeeze(1),  # (N, 512) – Bild-Embeddings
     labels = np.array(all_labels),       # (N,)     – Labels als Zahlen
 )
 

@@ -32,7 +32,7 @@ from models import EarlyFusion, CrossAttentionFusion
 # ─────────────────────────────────────────────
 # KONFIGURATION
 # ─────────────────────────────────────────────
-FEATURES_FILE = "memotion_features.npz"
+FEATURES_FILE = "./data/dataset/memotion_features.npz"
 N_CLASSES     = 5
 N_EPOCHS      = 40
 BATCH_SIZE    = 64
