@@ -91,11 +91,21 @@ class ExtractFeaturesKaggle:
         gibt den kompletten Datenpfad zu /images zurück, beginnend bei Laufwerk C
         :return:
         """
-        return os.path.join(search_memotion_dataset_7k_dir(), "images")
+        memotion_dataset_7k_dir = search_memotion_dataset_7k_dir()
+        if memotion_dataset_7k_dir is not None:
+            return os.path.join(memotion_dataset_7k_dir, "images")
+        else:
+            self.load_and_save_dataset()
+            return self.get_images_path()
 
     def get_labels_csv_path(self) -> str:
         """
         gibt den kompletten Datenpfad zu labels.csv zurück, beginnend bei Laufwerk C
         :return:
         """
-        return os.path.join(search_memotion_dataset_7k_dir(), "labels.csv")
+        memotion_dataset_7k_dir = search_memotion_dataset_7k_dir()
+        if memotion_dataset_7k_dir is not None:
+            return os.path.join(memotion_dataset_7k_dir, "labels.csv")
+        else:
+            self.load_and_save_dataset()
+            return self.get_images_path()

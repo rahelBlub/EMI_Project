@@ -32,7 +32,7 @@ from models import EarlyFusion, CrossAttentionFusion
 # ─────────────────────────────────────────────
 # KONFIGURATION
 # ─────────────────────────────────────────────
-FEATURES_FILE = "memotion_features.npz"
+FEATURES_FILE = "C:/Users/rebek/Documents/EMI_Project/data/dataset/memotion_features.npz"
 N_CLASSES     = 5
 N_EPOCHS      = 40
 BATCH_SIZE    = 64
@@ -287,7 +287,7 @@ if __name__ == "__main__":
         mean_acc = np.mean(accs); std_acc = np.std(accs)
         print(f"{model_name:<25} {mean_f1:.4f}±{std_f1:.4f}  "
               f"{mean_acc:.4f}±{std_acc:.4f}")
-        if mean_f1 > best_model_name:
+        if best_model_name is None:
             best_mean_f1    = mean_f1
             best_model_name = model_name
 
