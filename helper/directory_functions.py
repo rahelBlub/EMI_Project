@@ -43,7 +43,10 @@ def create_dir_name(dataset_name):
 
 def search_memotion_dataset_7k_dir():
     target = "memotion_dataset_7k"
-    return search_dir(target)
+    ret_val = search_dir(target)
+    if ret_val is not None:
+        return ret_val
+    return None
 
 
 def search_dir(searched_dir):

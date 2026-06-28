@@ -33,6 +33,7 @@ from models import EarlyFusion, CrossAttentionFusion
 # KONFIGURATION
 # ─────────────────────────────────────────────
 FEATURES_FILE = "./data/dataset/memotion_features.npz"
+#FEATURES_FILE = "C:/Users/rebek/Documents/EMI_Project/data/dataset/memotion_features.npz"
 N_CLASSES     = 5
 N_EPOCHS      = 40
 BATCH_SIZE    = 64
@@ -277,6 +278,7 @@ if __name__ == "__main__":
     print(f"{'Baseline Text only':<25} {text_f1:>12.4f} {text_acc:>12.4f}")
     print(f"{'Baseline Image only':<25} {image_f1:>12.4f} {image_acc:>12.4f}")
 
+    #TODO best_model_name mit länge abgleichen und auf leeern str nitialisieren
     best_model_name = None
     best_mean_f1    = 0.0
 
@@ -287,7 +289,8 @@ if __name__ == "__main__":
         mean_acc = np.mean(accs); std_acc = np.std(accs)
         print(f"{model_name:<25} {mean_f1:.4f}±{std_f1:.4f}  "
               f"{mean_acc:.4f}±{std_acc:.4f}")
-        if mean_f1 > best_model_name:
+        if best_model_name is None:
+        #if mean_f1 > best_model_name:
             best_mean_f1    = mean_f1
             best_model_name = model_name
 

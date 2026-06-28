@@ -166,7 +166,8 @@ for idx, row in tqdm(df.iterrows(), total=len(df)):
     img_path = os.path.join(IMG_DIR, row[IMAGE_COL])
     #h_i = get_image_embedding(img_path)
     image = preprocess(Image.open(img_path)).unsqueeze(0).to(device)
-    h_i = model.encode_image(image).detach().cpu().numpy()
+    #h_i = model.encode_image(image).detach().cpu().numpy()
+    h_i = model.encode_image(image).detach().cpu().numpy().squeeze(0)
 
     all_text_embs.append(h_t)
     all_image_embs.append(h_i)
