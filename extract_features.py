@@ -49,7 +49,7 @@ extract_features = ExtractFeaturesKaggle()
 DATASET_DIR  = "data/dataset/memotion_dataset_7k"          # Ordner mit dem Datensatz
 LABELS_CSV   = os.path.join(DATASET_DIR, "labels.csv")
 #IMAGE_DIR    = os.path.join(DATASET_DIR, "images")
-OUTPUT_FILE  = "data/dataset/memotion_features.npz"        # hier landen die Embeddings
+OUTPUT_FILE  = "results/memotion_features.npz"        # hier landen die Embeddings
 IMG_DIR = extract_features.get_images_path()
 
 # extract_features.load_and_save_dataset()
@@ -154,7 +154,7 @@ all_text_embs  = []
 all_image_embs = []
 all_labels     = []
 all_indices    = []  # merken welche Zeilen erfolgreich waren
-df = df.head(5000)  # ← nur zum Testen, danach wieder entfernen
+df = df.head(10)  # ← nur zum Testen, danach wieder entfernen
 for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Text-Embedding

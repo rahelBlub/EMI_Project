@@ -32,7 +32,7 @@ from models import EarlyFusion, CrossAttentionFusion
 # ─────────────────────────────────────────────
 # KONFIGURATION
 # ─────────────────────────────────────────────
-FEATURES_FILE = "./data/dataset/memotion_features.npz"
+FEATURES_FILE = "./results/memotion_features.npz"
 #FEATURES_FILE = "C:/Users/rebek/Documents/EMI_Project/data/dataset/memotion_features.npz"
 N_CLASSES     = 5
 N_EPOCHS      = 40
@@ -305,7 +305,7 @@ if __name__ == "__main__":
     plot_confusion_matrix(
         final_result["y_true"], final_result["y_pred"],
         model_name=best_model_name,
-        filename=f"confusion_matrix_{best_model_name}.png"
+        filename=f"./results/confusion_matrix_{best_model_name}.png"
     )
 
     # 8. Ablation: Was passiert wenn wir eine Modalität auf 0 setzen?
