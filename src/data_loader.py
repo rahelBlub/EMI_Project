@@ -8,6 +8,7 @@ import torch
 from helper.directory_functions import is_dataset_dir_existing, create_dir_name, get_root, \
     search_memotion_dataset_7k_dir, is_memotion_dataset_7k_existing
 
+
 class ExtractFeaturesKaggle:
     DATASET_DIR = os.path.join(get_root(), "data", "dataset")
 
@@ -55,10 +56,6 @@ class ExtractFeaturesKaggle:
         :param dataset_name: default="williamscott701/memotion-dataset-7k"
         :return:
         """
-        #TODO: der self.get_labels_csv() Aufruf ist irgendwie redundant, da
-        # ja der komplette Datenpfad zu memotion_dataset_7k zurückgegeben wird und
-        # da ja auch der Überordner drin ist, der in self.load_and_save_dataset
-        # generiert wird
         if self._is_memotion_dataset_7k_dir_existing:
 
             if self._is_full_dataset_dir_existing:

@@ -53,8 +53,6 @@ LABELS_CSV   = os.path.join(DATASET_DIR, "labels.csv")
 OUTPUT_FILE  = "results/memotion_features.npz"        # hier landen die Embeddings
 IMG_DIR = extract_features.get_images_path()
 
-# extract_features.load_and_save_dataset()
-
 dataset_labels = extract_features.load_dataset_from_dir()
 clean_labels = data_cleaning_and_label_encoding(dataset_labels, IMG_DIR)
 
@@ -155,7 +153,7 @@ all_text_embs  = []
 all_image_embs = []
 all_labels     = []
 all_indices    = []  # merken welche Zeilen erfolgreich waren
-df = df.head(5000)  # ← nur zum Testen, danach wieder entfernen
+df = df.head(5000)
 for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Text-Embedding
