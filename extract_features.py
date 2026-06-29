@@ -154,7 +154,7 @@ all_text_embs  = []
 all_image_embs = []
 all_labels     = []
 all_indices    = []  # merken welche Zeilen erfolgreich waren
-df = df.head(4000)  # ← nur zum Testen, danach wieder entfernen
+#df = df.head(4000)  # ← nur zum Testen, danach wieder entfernen
 for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Text-Embedding
