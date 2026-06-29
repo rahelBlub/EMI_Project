@@ -96,12 +96,13 @@ def get_image_embedding(image_path: str) -> Tensor | Module | ndarray[tuple[int]
     try:
         img = Image.open(image_path).convert("RGB")
         inputs = clip_proc(images=img, return_tensors="pt")
+        inputs = {k: v.to(device) for k, v in inputs.items()}
 
         with torch.no_grad():  # kein Gradient nötig – wir trainieren CLIP nicht
-            features = clip_model.get_image_features(**inputs)  # (1, 512)
-
-        #return clip_model.image_embeds
-        return features.squeeze(0).numpy()  # (512,)
+            #features = clip_model.get_image_features(**inputs)  # (1, 512)
+            outputs = clip_model(**inputs)
+            features = outputs.image_embeds
+        return features.detach().cpu().numpy().squeeze(0)  # (512,)
 
     except Exception as e:
         print(f"  ⚠ Fehler bei {image_path}: {e} → Nullvektor wird verwendet")
@@ -119,13 +120,12 @@ df = dataset_labels
 print(df.head(3))
 print(f"Spalten: {list(df.columns)}")
 
-# !! PASSE DIESE SPALTENNAMEN AN deine labels.csv an !!
-# Typische Spalten in Memotion: 'image_name', 'text_corrected', 'humour', 'overall_sentiment'
-IMAGE_COL  = "image_name"        # Spalte mit dem Dateinamen des Bildes
-TEXT_COL   = "text_corrected"    # Spalte mit dem Text des Memes
-LABEL_COL  = "overall_sentiment" # Spalte mit dem Label (was wir vorhersagen wollen)
+# Label der labels.csv -> ergänzen mit 'humor', 'sarcasm', 'offensive', 'motivational'
+IMAGE_COL  = "image_name"
+TEXT_COL   = "text_corrected"
+LABEL_COL  = "overall_sentiment"
 
-# Memotion hat manchmal viele Label-Spalten. Wir nehmen 'overall_sentiment'
+# Memotion hat viele Label-Spalten. Wir nehmen 'overall_sentiment'
 # Mögliche Werte: very_positive, positive, neutral, negative, very_negative
 # Diese wandeln wir in Zahlen um:
 label_map = {
@@ -154,7 +154,7 @@ all_text_embs  = []
 all_image_embs = []
 all_labels     = []
 all_indices    = []  # merken welche Zeilen erfolgreich waren
-#df = df.head(4000)  # ← nur zum Testen, danach wieder entfernen
+df = df.head(5000)  # ← nur zum Testen, danach wieder entfernen
 for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Text-Embedding
@@ -162,9 +162,8 @@ for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Bild-Embedding
     img_path = os.path.join(IMG_DIR, row[IMAGE_COL])
-    #h_i = get_image_embedding(img_path)
+    # h_i = get_image_embedding(img_path)
     image = preprocess(Image.open(img_path)).unsqueeze(0).to(device)
-    #h_i = model.encode_image(image).detach().cpu().numpy()
     h_i = model.encode_image(image).detach().cpu().numpy().squeeze(0)
 
     all_text_embs.append(h_t)
