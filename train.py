@@ -329,4 +329,3 @@ if __name__ == "__main__":
               f"(Rückgang: {best_mean_f1 - f1:+.4f})")
 
     print("\n✓ Fertig! Alle Ergebnisse ausgegeben.")
-    print("  Tipp: Kopiere die Tabelle in deine README.md")
