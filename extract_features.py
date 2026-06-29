@@ -40,6 +40,7 @@ from sentence_transformers import SentenceTransformer
 from transformers import CLIPProcessor, CLIPModel
 
 from src.data_loader import ExtractFeaturesKaggle
+from helper.directory_functions import data_cleaning_and_label_encoding
 # ─────────────────────────────────────────────
 # KONFIGURATION – hier kannst du Pfade anpassen
 # ─────────────────────────────────────────────
@@ -55,7 +56,7 @@ IMG_DIR = extract_features.get_images_path()
 # extract_features.load_and_save_dataset()
 
 dataset_labels = extract_features.load_dataset_from_dir()
-
+clean_labels = data_cleaning_and_label_encoding()
 
 # ─────────────────────────────────────────────
 # MODELLE LADEN (einmalig, dann eingefroren)
@@ -114,7 +115,7 @@ def get_image_embedding(image_path: str) -> Tensor | Module | ndarray[tuple[int]
 # ─────────────────────────────────────────────
 print(f"\nLese Labels aus {LABELS_CSV} ...")
 #df = pd.read_csv(LABELS_CSV)
-df = dataset_labels
+df = clean_labels
 
 # Zeige die ersten Zeilen, damit du siehst ob die Spalten stimmen
 print(df.head(3))
@@ -154,7 +155,7 @@ all_text_embs  = []
 all_image_embs = []
 all_labels     = []
 all_indices    = []  # merken welche Zeilen erfolgreich waren
-df = df.head(10)  # ← nur zum Testen, danach wieder entfernen
+df = df.head(5000)  # ← nur zum Testen, danach wieder entfernen
 for idx, row in tqdm(df.iterrows(), total=len(df)):
 
     # Text-Embedding
