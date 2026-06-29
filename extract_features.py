@@ -56,7 +56,7 @@ IMG_DIR = extract_features.get_images_path()
 # extract_features.load_and_save_dataset()
 
 dataset_labels = extract_features.load_dataset_from_dir()
-clean_labels = data_cleaning_and_label_encoding()
+clean_labels = data_cleaning_and_label_encoding(dataset_labels, IMG_DIR)
 
 # ─────────────────────────────────────────────
 # MODELLE LADEN (einmalig, dann eingefroren)

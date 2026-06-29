@@ -70,7 +70,7 @@ def is_memotion_dataset_7k_existing() -> bool:
         return False
 
 
-def data_cleaning_and_label_encoding(self, df: pd.DataFrame, img_dir):
+def data_cleaning_and_label_encoding(df: pd.DataFrame, img_dir):
     # ── Fix image names ──
     df["image_name"] = df["image_name"].astype(str).str.strip()
 
